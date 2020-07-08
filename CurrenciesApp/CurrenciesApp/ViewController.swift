@@ -8,12 +8,20 @@
 
 import UIKit
 import CurrencyLayerAPI
+import Currencies
 
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
 
-        let _ = CurrencyLayerAPI(token: "hello")
+//        print(try? Currencies.default.rates(source: "JPY"))
+//        let api = CurrencyLayerAPI(token: "e5cfa59531b0af65d4cc99ebbd6c7822")
+//        api.rates().done { data in
+//            print(data)
+//        }
+//        .catch { error in
+//            print(error.localizedDescription)
+//        }
     }
 }

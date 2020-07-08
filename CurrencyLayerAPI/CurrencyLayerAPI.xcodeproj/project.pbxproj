@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A973EE2A24B57698000EA8A0 /* CurrencyLayerAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = A973EE2824B57698000EA8A0 /* CurrencyLayerAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A973EE3E24B579A5000EA8A0 /* CurrencyLayerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A973EE3D24B579A5000EA8A0 /* CurrencyLayerAPI.swift */; };
+		A973EE4024B57C02000EA8A0 /* CurrencyLayerAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A973EE3F24B57C02000EA8A0 /* CurrencyLayerAPIError.swift */; };
 		E72CBECA9D5486594CA4653F /* Pods_Work_CurrencyLayerAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF18829FB04F3DF630FDA29A /* Pods_Work_CurrencyLayerAPI.framework */; };
 /* End PBXBuildFile section */
 
@@ -16,9 +16,9 @@
 		3082C28A334043ED33D41D52 /* Pods-Work-CurrencyLayerAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Work-CurrencyLayerAPI.debug.xcconfig"; path = "Target Support Files/Pods-Work-CurrencyLayerAPI/Pods-Work-CurrencyLayerAPI.debug.xcconfig"; sourceTree = "<group>"; };
 		576C04437BF0F7DDBABEF86D /* Pods-Work-CurrencyLayerAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Work-CurrencyLayerAPI.release.xcconfig"; path = "Target Support Files/Pods-Work-CurrencyLayerAPI/Pods-Work-CurrencyLayerAPI.release.xcconfig"; sourceTree = "<group>"; };
 		A973EE2524B57698000EA8A0 /* CurrencyLayerAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CurrencyLayerAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A973EE2824B57698000EA8A0 /* CurrencyLayerAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrencyLayerAPI.h; sourceTree = "<group>"; };
 		A973EE2924B57698000EA8A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A973EE3D24B579A5000EA8A0 /* CurrencyLayerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyLayerAPI.swift; sourceTree = "<group>"; };
+		A973EE3F24B57C02000EA8A0 /* CurrencyLayerAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyLayerAPIError.swift; sourceTree = "<group>"; };
 		DF18829FB04F3DF630FDA29A /* Pods_Work_CurrencyLayerAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Work_CurrencyLayerAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -73,9 +73,9 @@
 		A973EE2724B57698000EA8A0 /* CurrencyLayerAPI */ = {
 			isa = PBXGroup;
 			children = (
-				A973EE2824B57698000EA8A0 /* CurrencyLayerAPI.h */,
 				A973EE2924B57698000EA8A0 /* Info.plist */,
 				A973EE3D24B579A5000EA8A0 /* CurrencyLayerAPI.swift */,
+				A973EE3F24B57C02000EA8A0 /* CurrencyLayerAPIError.swift */,
 			);
 			path = CurrencyLayerAPI;
 			sourceTree = "<group>";
@@ -87,7 +87,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A973EE2A24B57698000EA8A0 /* CurrencyLayerAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +185,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A973EE4024B57C02000EA8A0 /* CurrencyLayerAPIError.swift in Sources */,
 				A973EE3E24B579A5000EA8A0 /* CurrencyLayerAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
