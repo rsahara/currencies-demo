@@ -18,6 +18,7 @@
 		A973EE3B24B57808000EA8A0 /* CurrencyLayerAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A973EE3324B576BA000EA8A0 /* CurrencyLayerAPI.framework */; };
 		A973EE3C24B57808000EA8A0 /* CurrencyLayerAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A973EE3324B576BA000EA8A0 /* CurrencyLayerAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A973EE4E24B5800E000EA8A0 /* Currencies+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = A973EE4D24B5800E000EA8A0 /* Currencies+Default.swift */; };
+		A973EE5024B599E1000EA8A0 /* SelectCurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A973EE4F24B599E1000EA8A0 /* SelectCurrencyViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,6 +49,7 @@
 		A973EE3124B576BA000EA8A0 /* Currencies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Currencies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A973EE3324B576BA000EA8A0 /* CurrencyLayerAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CurrencyLayerAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A973EE4D24B5800E000EA8A0 /* Currencies+Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Currencies+Default.swift"; sourceTree = "<group>"; };
+		A973EE4F24B599E1000EA8A0 /* SelectCurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyViewController.swift; sourceTree = "<group>"; };
 		BFBF8BDE3EA2AC5B8AE1408B /* Pods_Work_CurrenciesApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Work_CurrenciesApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -89,6 +91,7 @@
 				A973EDF224B575D2000EA8A0 /* AppDelegate.swift */,
 				A973EDF424B575D2000EA8A0 /* SceneDelegate.swift */,
 				A973EDF624B575D2000EA8A0 /* ViewController.swift */,
+				A973EE4F24B599E1000EA8A0 /* SelectCurrencyViewController.swift */,
 				A973EDFB24B575D4000EA8A0 /* Assets.xcassets */,
 				A973EDFD24B575D4000EA8A0 /* LaunchScreen.storyboard */,
 				A973EE0024B575D4000EA8A0 /* Info.plist */,
@@ -232,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A973EE5024B599E1000EA8A0 /* SelectCurrencyViewController.swift in Sources */,
 				A973EE4E24B5800E000EA8A0 /* Currencies+Default.swift in Sources */,
 				A973EDF724B575D2000EA8A0 /* ViewController.swift in Sources */,
 				A973EDF324B575D2000EA8A0 /* AppDelegate.swift in Sources */,

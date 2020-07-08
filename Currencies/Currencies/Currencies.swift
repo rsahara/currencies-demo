@@ -13,9 +13,9 @@ import CoreData
 
 // For tests do something like `class CurrenciesMock: CurrenciesProtocol`
 public protocol CurrenciesProtocol {
-    func currencies() throws -> [String]
-    func updateCurrencies() -> Promise<Void>
-    func rates(source: String) throws -> [String: Double]
+    func currencyCodes() throws -> [String]
+    func updateCurrencyCodes() -> Promise<Void>
+    func rates(sourceCurrencyCode: String) throws -> [String: Double]
     func updateRates() -> Promise<Void>
 }
 
@@ -45,30 +45,30 @@ public class Currencies {
 }
 
 extension Currencies: CurrenciesProtocol {
-    public func currencies() throws -> [String] {
-        let context = self.persistentContainer.newBackgroundContext()
-        let fetchRequest = NSFetchRequest<Rate>(entityName: "Rate")
+    public func currencyCodes() throws -> [String] {
+        let context = self.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<Rate> = Rate.fetchRequest()
         let rates = try context.fetch(fetchRequest)
         var result = rates.compactMap { rate in rate.code }
         result.append("USD")
         return result.sorted()
     }
 
-    public func updateCurrencies() -> Promise<Void> {
+    public func updateCurrencyCodes() -> Promise<Void> {
         // Use the rates data.
         updateRates()
     }
 
-    public func rates(source: String) throws -> [String: Double] {
-        let context = self.persistentContainer.newBackgroundContext()
-        let fetchRequest = NSFetchRequest<Rate>(entityName: "Rate")
+    public func rates(sourceCurrencyCode: String) throws -> [String: Double] {
+        let context = self.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<Rate> = Rate.fetchRequest()
         let rates = try context.fetch(fetchRequest)
         var rateMap: [String: Double] = ["USD": 1.0]
         for rate in rates {
             rateMap[rate.code!] = rate.rate
         }
-        guard let usdToSourceRate = rateMap[source] else {
-            throw CurrenciesError("Unknown source")
+        guard let usdToSourceRate = rateMap[sourceCurrencyCode] else {
+            throw CurrenciesError("Unknown currency code")
         }
         let sourceToUSDRate = 1.0 / usdToSourceRate
         var result = [String: Double]()
@@ -84,9 +84,16 @@ extension Currencies: CurrenciesProtocol {
             Date(timeInterval: 60.0 * 30.0, since: lastUpdate) > Date() {
             return .init(error: CurrenciesError("Too frequent", type: .noUpdates))
         }
-        return api.rates().done { rates in
-            let context = self.persistentContainer.newBackgroundContext()
-            let fetchRequest = NSFetchRequest<Rate>(entityName: "Rate")
+        return api.rates().then { [weak self] rates in
+            self?.saveModels(rates: rates, updateTime: now) ?? .value(())
+        }
+    }
+}
+
+private extension Currencies {
+    private func saveModels(rates: [String: Double], updateTime: Date) -> Promise<Void> {
+        self.persistentContainer.performInBackground { (context: NSManagedObjectContext) -> () in
+            let fetchRequest: NSFetchRequest<Rate> = Rate.fetchRequest()
             let models = try context.fetch(fetchRequest)
             models.forEach { model in
                 context.delete(model)
@@ -101,7 +108,25 @@ extension Currencies: CurrenciesProtocol {
                 rateModel.rate = rate
             }
             try context.save()
-            UserDefaults.standard.setValue(now, forKey: "lastUpdateRates")
+            UserDefaults.standard.setValue(updateTime, forKey: "lastUpdateRates")
         }
+    }
+}
+
+private extension NSPersistentContainer {
+    func performInBackground<T>(body: @escaping (NSManagedObjectContext) throws -> T) -> Promise<T> {
+        let (promise, resolver) = Promise<T>.pending()
+        performBackgroundTask { context in
+            let result: T
+            do {
+                result = try body(context)
+            }
+            catch {
+                resolver.reject(error)
+                return
+            }
+            resolver.fulfill(result)
+        }
+        return promise
     }
 }
