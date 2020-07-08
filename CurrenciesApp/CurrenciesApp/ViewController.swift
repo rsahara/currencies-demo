@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import CurrencyLayerAPI
 
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
+
+        let _ = CurrencyLayerAPI(token: "hello")
     }
 }
-
