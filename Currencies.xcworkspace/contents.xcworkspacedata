@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:CurrenciesApp/CurrenciesApp.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Currencies/Currencies.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:CurrencyLayerAPI/CurrencyLayerAPI.xcodeproj">
+   </FileRef>
+</Workspace>
