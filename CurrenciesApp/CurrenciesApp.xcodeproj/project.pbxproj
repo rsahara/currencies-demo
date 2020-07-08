@@ -10,19 +10,34 @@
 		A973EDF324B575D2000EA8A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A973EDF224B575D2000EA8A0 /* AppDelegate.swift */; };
 		A973EDF524B575D2000EA8A0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A973EDF424B575D2000EA8A0 /* SceneDelegate.swift */; };
 		A973EDF724B575D2000EA8A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A973EDF624B575D2000EA8A0 /* ViewController.swift */; };
-		A973EDFA24B575D2000EA8A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A973EDF824B575D2000EA8A0 /* Main.storyboard */; };
 		A973EDFC24B575D4000EA8A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A973EDFB24B575D4000EA8A0 /* Assets.xcassets */; };
 		A973EDFF24B575D4000EA8A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A973EDFD24B575D4000EA8A0 /* LaunchScreen.storyboard */; };
-		A973EE3224B576BA000EA8A0 /* Currencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A973EE3124B576BA000EA8A0 /* Currencies.framework */; };
-		A973EE3424B576BA000EA8A0 /* CurrencyLayerAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A973EE3324B576BA000EA8A0 /* CurrencyLayerAPI.framework */; };
+		A973EE3824B57807000EA8A0 /* Currencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A973EE3124B576BA000EA8A0 /* Currencies.framework */; };
+		A973EE3924B57807000EA8A0 /* Currencies.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A973EE3124B576BA000EA8A0 /* Currencies.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A973EE3B24B57808000EA8A0 /* CurrencyLayerAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A973EE3324B576BA000EA8A0 /* CurrencyLayerAPI.framework */; };
+		A973EE3C24B57808000EA8A0 /* CurrencyLayerAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A973EE3324B576BA000EA8A0 /* CurrencyLayerAPI.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A973EE3A24B57807000EA8A0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A973EE3C24B57808000EA8A0 /* CurrencyLayerAPI.framework in Embed Frameworks */,
+				A973EE3924B57807000EA8A0 /* Currencies.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A973EDEF24B575D2000EA8A0 /* CurrenciesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrenciesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A973EDF224B575D2000EA8A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A973EDF424B575D2000EA8A0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A973EDF624B575D2000EA8A0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		A973EDF924B575D2000EA8A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A973EDFB24B575D4000EA8A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A973EDFE24B575D4000EA8A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A973EE0024B575D4000EA8A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -35,8 +50,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A973EE3224B576BA000EA8A0 /* Currencies.framework in Frameworks */,
-				A973EE3424B576BA000EA8A0 /* CurrencyLayerAPI.framework in Frameworks */,
+				A973EE3B24B57808000EA8A0 /* CurrencyLayerAPI.framework in Frameworks */,
+				A973EE3824B57807000EA8A0 /* Currencies.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,7 +81,6 @@
 				A973EDF224B575D2000EA8A0 /* AppDelegate.swift */,
 				A973EDF424B575D2000EA8A0 /* SceneDelegate.swift */,
 				A973EDF624B575D2000EA8A0 /* ViewController.swift */,
-				A973EDF824B575D2000EA8A0 /* Main.storyboard */,
 				A973EDFB24B575D4000EA8A0 /* Assets.xcassets */,
 				A973EDFD24B575D4000EA8A0 /* LaunchScreen.storyboard */,
 				A973EE0024B575D4000EA8A0 /* Info.plist */,
@@ -93,6 +107,7 @@
 				A973EDEB24B575D2000EA8A0 /* Sources */,
 				A973EDEC24B575D2000EA8A0 /* Frameworks */,
 				A973EDED24B575D2000EA8A0 /* Resources */,
+				A973EE3A24B57807000EA8A0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -143,7 +158,6 @@
 			files = (
 				A973EDFF24B575D4000EA8A0 /* LaunchScreen.storyboard in Resources */,
 				A973EDFC24B575D4000EA8A0 /* Assets.xcassets in Resources */,
-				A973EDFA24B575D2000EA8A0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,14 +177,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		A973EDF824B575D2000EA8A0 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A973EDF924B575D2000EA8A0 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		A973EDFD24B575D4000EA8A0 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
