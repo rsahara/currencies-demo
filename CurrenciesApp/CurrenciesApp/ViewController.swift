@@ -13,21 +13,29 @@ class ViewModel {
     var sourceCurrencyCode: String = "USD"
     var amount: Double = 100.0
     var rates = [String: Double]()
-    var currencyCodes: [String] {
-        return _currencyCodes
+    var sortedCurrencyCodes: [String] {
+        return _sortedCurrencyCodes
     }
 
-    func commit(_ viewController: ViewController) throws {
+    // Commits view model to model, ask the UI to update (no data binding).
+    func commit(_ viewController: ViewController?) throws {
         rates = try Currencies.default.rates(sourceCurrencyCode: sourceCurrencyCode)
-        _currencyCodes = rates.keys.sorted()
-        viewController.button.setTitle("\(sourceCurrencyCode) (click to change)", for: .normal)
-        viewController.tableView.reloadData()
+        _sortedCurrencyCodes = rates.keys.sorted()
+        viewController?.update(with: self)
     }
 
-    private var _currencyCodes = [String]()
+    // Currency codes sorted by code.
+    private var _sortedCurrencyCodes = [String]()
 }
 
 class ViewController: UIViewController {
+    private lazy var viewModel = ViewModel()
+    private lazy var textField = UITextField()
+    private lazy var button = UIButton()
+    private lazy var tableView = UITableView()
+}
+
+extension ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -73,21 +81,48 @@ class ViewController: UIViewController {
 
         NSLayoutConstraint.activate(constraints)
 
+        // Sync with the initial values
         try! viewModel.commit(self)
-        Currencies.default.updateCurrencyCodes().done(on: .main) { [weak self] in
+
+        // Try to update the models. Sync the UI if there were updates.
+        Currencies.default.updateRates().done(on: .main) { [weak self] in
             guard let self = self else { return }
-            self.viewModel.rates = try Currencies.default.rates(sourceCurrencyCode: self.viewModel.sourceCurrencyCode)
-            try self.viewModel.commit(self)
+            let viewModel = self.viewModel
+            viewModel.rates = try Currencies.default.rates(sourceCurrencyCode: viewModel.sourceCurrencyCode)
+            try viewModel.commit(self)
         }.catch { error in
             print("\(error.localizedDescription)")
         }
     }
-
-    lazy var viewModel = ViewModel()
-    lazy var textField = UITextField()
-    lazy var button = UIButton()
-    lazy var tableView = UITableView()
 }
+
+// MARK: - UI updates
+
+extension ViewController {
+    func update(with viewModel: ViewModel) {
+        button.setTitle("\(viewModel.sourceCurrencyCode) (click to change)", for: .normal)
+        tableView.reloadData()
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension ViewController: UITableViewDataSource {
+    public func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.rates.count
+    }
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let currency = viewModel.sortedCurrencyCodes[indexPath.row]
+        let rate = viewModel.rates[currency] ?? 0.0
+        let exchangedAmount = viewModel.amount * rate
+        cell.textLabel?.text = "\(exchangedAmount) \(currency) (rate: \(rate))"
+        return cell
+    }
+}
+
+// MARK: - UI events
 
 extension ViewController {
     @objc func textFieldChanged() {
@@ -108,20 +143,5 @@ extension ViewController: SelectCurrencyViewControllerDelegate {
         viewModel.sourceCurrencyCode = currencyCode
         try! viewModel.commit(self)
         viewController.dismiss(animated: true, completion: nil)
-    }
-}
-
-extension ViewController: UITableViewDataSource {
-    public func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.rates.count
-    }
-
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let currency = viewModel.currencyCodes[indexPath.row]
-        let rate = viewModel.rates[currency] ?? 0.0
-        let exchangedAmount = viewModel.amount * rate
-        cell.textLabel?.text = "\(exchangedAmount) \(currency) (rate: \(rate))"
-        return cell
     }
 }

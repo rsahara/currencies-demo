@@ -9,9 +9,10 @@
 import Foundation
 import PromiseKit
 
-// For tests do something like `class CurrenciesMock: CurrenciesProtocol`
+// For tests do something like `class CurrencyLayerAPIMock: CurrencyLayerAPIProtocol`
 public protocol CurrencyLayerAPIProtocol {
-//    func currencies() -> Promise<[String: String]>
+    // Gets a list of exchange rates from USD to other currencies.
+    // Returns a dictionary mapping currency codes to the exchange rates.
     func rates() -> Promise<[String: Double]>
 }
 
@@ -48,7 +49,7 @@ extension CurrencyLayerAPI: CurrencyLayerAPIProtocol {
     }
 }
 
-internal extension CurrencyLayerAPI {
+private extension CurrencyLayerAPI {
     func request(endPoint: String, params: [String: String?]) -> Promise<[String: Any]> {
         let url: URL
         do {
@@ -74,7 +75,7 @@ internal extension CurrencyLayerAPI {
         return promise
     }
 
-    private static func processResponse(_ data: Data?, _ response: URLResponse?, _ error: Error?) throws -> [String: Any] {
+    static func processResponse(_ data: Data?, _ response: URLResponse?, _ error: Error?) throws -> [String: Any] {
         guard error == nil, let data = data, let response = response as? HTTPURLResponse else {
             throw CurrencyLayerAPIError("Request failed", type: .nonFatal(error))
         }
@@ -90,7 +91,7 @@ internal extension CurrencyLayerAPI {
         }
     }
 
-    private func makeURL(endPoint: String, params: [String: String?]) throws -> URL {
+    func makeURL(endPoint: String, params: [String: String?]) throws -> URL {
         guard var urlComponents = URLComponents(string: baseURLString) else {
             throw CurrencyLayerAPIError("Bad URL", type: .fatal(nil))
         }

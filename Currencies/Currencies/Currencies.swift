@@ -13,9 +13,13 @@ import CoreData
 
 // For tests do something like `class CurrenciesMock: CurrenciesProtocol`
 public protocol CurrenciesProtocol {
+    // Gets a list of currency codes locally.
     func currencyCodes() throws -> [String]
+    // Updates the list of currency codes from the server.
     func updateCurrencyCodes() -> Promise<Void>
+    // Gets the list of exchange rates for the given currency code, calculated locally.
     func rates(sourceCurrencyCode: String) throws -> [String: Double]
+    // Updates the list of exchange rates from the server.
     func updateRates() -> Promise<Void>
 }
 
@@ -51,7 +55,7 @@ extension Currencies: CurrenciesProtocol {
         let rates = try context.fetch(fetchRequest)
         var result = rates.compactMap { rate in rate.code }
         result.append("USD")
-        return result.sorted()
+        return result
     }
 
     public func updateCurrencyCodes() -> Promise<Void> {

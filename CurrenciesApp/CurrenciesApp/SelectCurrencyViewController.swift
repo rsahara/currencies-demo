@@ -15,18 +15,13 @@ protocol SelectCurrencyViewControllerDelegate: AnyObject {
 
 class SelectCurrencyViewController: UIViewController {
     public weak var delegate: SelectCurrencyViewControllerDelegate?
-    public required init?(coder aDecoder: NSCoder) { fatalError() }
-    public init() {
-        currencyCodes = []
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    private var currencyCodes: [String]
+    
+    private var sortedCurrencyCodes: [String] = []
     private lazy var tableView = UITableView()
 }
 
 extension SelectCurrencyViewController {
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .white
@@ -46,10 +41,10 @@ extension SelectCurrencyViewController {
 
         NSLayoutConstraint.activate(constraints)
 
-        currencyCodes = try! Currencies.default.currencyCodes()
+        sortedCurrencyCodes = try! Currencies.default.currencyCodes().sorted()
         Currencies.default.updateCurrencyCodes().done(on: .main) { [weak self] in
             guard let self = self else { return }
-            self.currencyCodes = try! Currencies.default.currencyCodes()
+            self.sortedCurrencyCodes = try! Currencies.default.currencyCodes().sorted()
             self.tableView.reloadData()
         }.catch { error in
             print("\(error.localizedDescription)")
@@ -59,18 +54,18 @@ extension SelectCurrencyViewController {
 
 extension SelectCurrencyViewController: UITableViewDataSource {
     public func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-        currencyCodes.count
+        sortedCurrencyCodes.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = currencyCodes[indexPath.row]
+        cell.textLabel?.text = sortedCurrencyCodes[indexPath.row]
         return cell
     }
 }
 
 extension SelectCurrencyViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.didSelectCurrency(viewController: self, currencyCode: currencyCodes[indexPath.row])
+        delegate?.didSelectCurrency(viewController: self, currencyCode: sortedCurrencyCodes[indexPath.row])
     }
 }
